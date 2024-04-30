@@ -1,5 +1,5 @@
 pool:
-  vmImage: 'ubuntu-20.04'
+  vmImage: 'ubuntu-latest'
 
 variables:
   buildConfiguration: 'Release'
@@ -10,6 +10,10 @@ steps:
   displayName: 'Use .NET SDK $(dotnetSdkVersion)'
   inputs:
     version: '$(dotnetSdkVersion)'
+    
+- task: NuGetToolInstaller@0
+  inputs:
+    versionSpec: '6.x'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
@@ -33,7 +37,7 @@ steps:
     versioningScheme: byPrereleaseNumber
     majorVersion: '1'
     minorVersion: '1'
-    patchVersion: '1'
+    patchVersion: '2'
  
 - task: NuGetCommand@2
   displayName: 'Publish NuGet package'
